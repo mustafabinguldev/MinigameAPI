@@ -1,0 +1,5 @@
+name: MinigameAPI
+version: '${project.version}'
+main: online.bingulhan.minigameapi.MinigameAPI
+authors: [ BingulHan ]
+description: Basic MinigameAPI
