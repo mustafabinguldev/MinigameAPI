@@ -1,5 +1,5 @@
 Owner [@BingulHan](https://github.com/BingulHan)
-Support 
+Support [Discord](discord.gg/NUR9k9H6ab)
 
 What is this?
 Simple handy mini game api
