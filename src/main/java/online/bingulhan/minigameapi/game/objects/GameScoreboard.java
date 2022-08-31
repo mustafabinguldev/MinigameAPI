@@ -6,6 +6,7 @@ import lombok.Setter;
 import online.bingulhan.minigameapi.MinigameAPI;
 import online.bingulhan.minigameapi.game.objects.task.ScoreboardTask;
 import online.bingulhan.minigameapi.game.status.StatusVariant;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -85,7 +86,7 @@ public abstract class GameScoreboard {
         player.setScoreboard(getStatus().getGameVariant().getPlugin().getServer().getScoreboardManager().getNewScoreboard());
     }
 
-    private final void shower() {
+    public final void shower() {
         if (title == null) return;
         if (scores().size()<1) return;
         creator();
@@ -96,25 +97,25 @@ public abstract class GameScoreboard {
     public abstract List<String> scores();
 
 
-    private final void creator() {
+    public final void creator() {
             if (this.scoreboard == null) {
                 this.scoreboard = MinigameAPI.getInstance().getServer().getScoreboardManager().getNewScoreboard();
             }
 
             if (this.objective == null) {
-                this.objective = scoreboard.registerNewObjective(title, title);
+                this.objective = scoreboard.registerNewObjective(ChatColor.translateAlternateColorCodes('&', title), ChatColor.translateAlternateColorCodes('&', title));
                 this.objective.setDisplaySlot(DisplaySlot.SIDEBAR);
             }else {
                 //Reset scores
-                scoreboard.getEntries().stream().forEach(s -> {
-                    scoreboard.resetScores(s);
-                });
+                for (String score : scoreboard.getEntries()) {
+                    scoreboard.resetScores(score);
+                }
             }
 
             int index = 0;
 
             for (String l : scores()) {
-                Score score = objective.getScore(l);
+                Score score = objective.getScore(ChatColor.translateAlternateColorCodes('&', l));
                 score.setScore(index);
                 index++;
             }
