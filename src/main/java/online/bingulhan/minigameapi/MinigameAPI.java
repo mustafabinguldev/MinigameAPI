@@ -16,7 +16,7 @@ public final class MinigameAPI extends JavaPlugin {
 
         instance=this;
 
-   //     GameVariant gameVariant = new GameTest("Test", this, true);
+        GameVariant gameVariant = new GameTest("Test", this, true);
 
         getServer().getLogger().info("API is load");
 

@@ -1,5 +1,7 @@
 package online.bingulhan.minigameapi.example.status.waiting;
 
+import online.bingulhan.minigameapi.example.ExamplePlayer;
+import online.bingulhan.minigameapi.game.objects.GamePlayer;
 import online.bingulhan.minigameapi.game.status.StatusListener;
 import online.bingulhan.minigameapi.game.status.StatusVariant;
 import online.bingulhan.minigameapi.game.util.PlayerUtil;
@@ -26,6 +28,10 @@ public class WaitingListener extends StatusListener {
 
         getStatus().injectScoreboard(true);
 
+        //Example Data
+        ExamplePlayer playerData = ((ExamplePlayer) getPlayerData(event.getPlayer().getName()).get());
+        event.getPlayer().sendMessage(ChatColor.GREEN+"Coin: "+playerData.getCoin());
+
 
         getStatus().sendMessageAll(ChatColor.GREEN +""+event.getPlayer().getName()+" joined the arena!");
     }
@@ -33,7 +39,7 @@ public class WaitingListener extends StatusListener {
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
         //Use to add players
-        getStatus().getGameVariant().addPlayer(event.getPlayer());
+        getStatus().getGameVariant().addPlayer(event.getPlayer(), ExamplePlayer.class);
     }
 
     @EventHandler

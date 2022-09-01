@@ -6,6 +6,7 @@ import online.bingulhan.minigameapi.game.status.StatusVariant;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -100,8 +101,16 @@ public abstract class GameVariant {
         return Objects.hashCode("game"+name);
     }
 
-    public final boolean addPlayer(Player player) {
-        return players.add(new GamePlayer(player.getName(), this));
+    public final boolean addPlayer(Player player, Class<? extends GamePlayer> clazz) {
+        try {
+            return players.add((GamePlayer) clazz.getConstructors()[0].newInstance(player.getName(), this));
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public final boolean removePlayer(Player player) {
