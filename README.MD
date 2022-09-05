@@ -4,6 +4,26 @@ Support [Discord](discord.gg/NUR9k9H6ab)
 What is this?
 Simple handy mini game api
 
+Maven:
+Repository:
+```
+<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+
+Dependecy:
+```
+<dependency>
+	    <groupId>com.github.BingulHan</groupId>
+	    <artifactId>MinigameAPI</artifactId>
+	    <version>0.1.2</version>
+</dependency>
+```
+
 How can I create a game? 
 For Example [GameTest.java](https://github.com/BingulHan/MinigameAPI/blob/master/src/main/java/online/bingulhan/minigameapi/example/GameTest.java)
 
