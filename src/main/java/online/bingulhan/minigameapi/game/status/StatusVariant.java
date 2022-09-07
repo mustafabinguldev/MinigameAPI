@@ -17,7 +17,6 @@ import java.util.Objects;
 
 @Getter
 public abstract class StatusVariant {
-
     /**
      * This is variant name.
      * Example: Ingame, Waiting
@@ -36,7 +35,6 @@ public abstract class StatusVariant {
 
         if (init) init();
     }
-
 
     /**
      * list object
@@ -71,8 +69,8 @@ public abstract class StatusVariant {
     }
 
     private final void injectScoreboard() {
-
         if (getScoreboard() == null) return;
+        
         for (GamePlayer playerData : gameVariant.getPlayers()) {
             if (playerData.getScoreboard() == null) {
                 if (playerData.toPlayer().isPresent()) {
@@ -83,7 +81,6 @@ public abstract class StatusVariant {
                 playerData.setScoreboard(null);
             }
         }
-
         injectScoreboard(true);
     }
 
@@ -95,8 +92,8 @@ public abstract class StatusVariant {
 
     public final void init() {
         onEnable();
-        injectScoreboard();
         getStatusListeners().stream().forEach(l -> getGameVariant().getPlugin().getServer().getPluginManager().registerEvents(l, getGameVariant().getPlugin()));
+        injectScoreboard();
     }
 
     public final void stop() {
@@ -128,7 +125,6 @@ public abstract class StatusVariant {
                 players.add(offlinePlayer.getPlayer());
             }
         }
-
         return players;
     }
 
