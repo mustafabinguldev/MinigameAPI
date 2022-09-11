@@ -67,6 +67,10 @@ public abstract class GameVariant {
     public final void stop() {
         reset();
 
+        if (currentStatus.getScoreboard() != null) {
+            getPlayers().stream().forEach(g -> g.getScoreboard().stop());   
+        }
+
         getPlayers().stream().forEach(g -> g.getScoreboard().stop());
         onDisable();
 
