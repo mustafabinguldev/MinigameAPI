@@ -157,11 +157,11 @@ public class GameGui {
                 if (e.getCurrentItem()==null) return;
                 if (e.getCurrentItem().getItemMeta()==null) return;
 
-                e.getWhoClicked().sendMessage("test1");
+        
                 for (GuiItem item : getGui().getItems()) {
                     ItemStack clickedItem = e.getCurrentItem();
                     if (clickedItem.getType().equals(item.getItem().getType()) && clickedItem.getItemMeta().getDisplayName().equals(item.getItem().getItemMeta().getDisplayName())) {
-                        e.getWhoClicked().sendMessage("test3");
+                
                         Player p = (Player) e.getWhoClicked();
                         item.interaction.run(p);
                     }
