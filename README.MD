@@ -7,12 +7,10 @@ Simple handy mini game api
 Maven:
 Repository:
 ```
-<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-</repositories>
+<repository>
+           <id>jitpack.io</id>
+           <url>https://jitpack.io</url>
+</repository>
 ```
 
 Dependecy:
@@ -20,7 +18,7 @@ Dependecy:
 <dependency>
 	    <groupId>com.github.BingulHan</groupId>
 	    <artifactId>MinigameAPI</artifactId>
-	    <version>0.1.2</version>
+	    <version>0.1.4</version>
 </dependency>
 ```
 
