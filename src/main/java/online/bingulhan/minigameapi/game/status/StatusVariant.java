@@ -2,8 +2,8 @@ package online.bingulhan.minigameapi.game.status;
 
 import lombok.Getter;
 import online.bingulhan.minigameapi.game.GameVariant;
+import online.bingulhan.minigameapi.game.objects.AbstractScoreboard;
 import online.bingulhan.minigameapi.game.objects.GamePlayer;
-import online.bingulhan.minigameapi.game.objects.GameScoreboard;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -28,6 +28,8 @@ public abstract class StatusVariant {
     protected HashSet<StatusListener> statusListeners = new HashSet<>();
 
     private final GameVariant gameVariant;
+
+    protected AbstractScoreboard scoreboard;
 
     public StatusVariant(String name, GameVariant variant, boolean init) {
         this.name=name;
@@ -54,36 +56,6 @@ public abstract class StatusVariant {
      */
     protected abstract void onDisable();
 
-    public abstract GameScoreboard getScoreboard();
-
-    public final void injectScoreboard(boolean repeat) {
-        if (getScoreboard() == null) return;
-
-        for (GamePlayer playerData : gameVariant.getPlayers()) {
-            if (playerData.getScoreboard() == null) {
-                if (playerData.toPlayer().isPresent()) {
-                    playerData.setScoreboard(getScoreboard().clone(playerData.toPlayer().get()));
-                }
-            }
-        }
-    }
-
-    private final void injectScoreboard() {
-        if (getScoreboard() == null) return;
-        
-        for (GamePlayer playerData : gameVariant.getPlayers()) {
-            if (playerData.getScoreboard() == null) {
-                if (playerData.toPlayer().isPresent()) {
-                    playerData.setScoreboard(getScoreboard().clone(playerData.toPlayer().get()));
-                }
-            }else{
-                playerData.getScoreboard().stop();
-                playerData.setScoreboard(null);
-            }
-        }
-        injectScoreboard(true);
-    }
-
     public final void addListener(StatusListener listener) {
         statusListeners.add(listener);
     }
@@ -93,13 +65,32 @@ public abstract class StatusVariant {
     public final void init() {
         onEnable();
         getStatusListeners().stream().forEach(l -> getGameVariant().getPlugin().getServer().getPluginManager().registerEvents(l, getGameVariant().getPlugin()));
-        injectScoreboard();
+
+        if (getScoreboard()!=null) {
+            getScoreboard().update();
+        }
+
+
     }
 
     public final void stop() {
         getTasks().stream().forEach(t -> t.cancel());
         getStatusListeners().stream().forEach(l -> HandlerList.unregisterAll(l));
         onDisable();
+
+
+        if (getScoreboard()!=null) {
+            getScoreboard().stop();
+        }
+
+    }
+
+    public final void setScoreboard(AbstractScoreboard scoreboard) {
+        if (this.scoreboard!=null) {
+            this.scoreboard.stop();
+        }
+
+        this.scoreboard = scoreboard;
     }
 
     /**

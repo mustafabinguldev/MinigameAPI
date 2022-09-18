@@ -1,13 +1,12 @@
 package online.bingulhan.minigameapi.example.status.starting;
 
 import online.bingulhan.minigameapi.game.GameVariant;
+import online.bingulhan.minigameapi.game.objects.AbstractScoreboard;
 import online.bingulhan.minigameapi.game.objects.GameGui;
-import online.bingulhan.minigameapi.game.objects.GameScoreboard;
 import online.bingulhan.minigameapi.game.status.StatusVariant;
 import online.bingulhan.minigameapi.game.util.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public class StartingStatus extends StatusVariant {
     public StartingStatus(String name, GameVariant variant, boolean init) {
@@ -25,6 +24,7 @@ public class StartingStatus extends StatusVariant {
 
     @Override
     protected void onEnable() {
+
 
         int lastSecond = 10;
         for (int i = 0; i < lastSecond; i++) {
@@ -51,18 +51,15 @@ public class StartingStatus extends StatusVariant {
         });
 
 
+        setScoreboard(new StartingScoreboard(this));
+
+
     }
 
     @Override
     protected void onDisable() {
         getGameVariant().nextState();
     }
-
-    @Override
-    public GameScoreboard getScoreboard() {
-        return new StartingScoreboard(this);
-    }
-
 
     @Override
     public StatusVariant clone(Boolean init) {

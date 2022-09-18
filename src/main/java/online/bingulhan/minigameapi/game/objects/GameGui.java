@@ -66,7 +66,6 @@ public class GameGui {
 
         for (GuiItem item : items) {
             ItemStack i = item.getItem();
-            player.getPlayer().sendMessage(""+i.getDurability());
             gui.setItem(item.getSlot(), item.getItem());
         }
 
@@ -90,7 +89,6 @@ public class GameGui {
         isClose=true;
 
         if (player.getPlayer().isOnline()){
-            player.getPlayer().sendMessage(ChatColor.RED+"Gui kapatıldı.");
             player.getPlayer().closeInventory();
         }
 

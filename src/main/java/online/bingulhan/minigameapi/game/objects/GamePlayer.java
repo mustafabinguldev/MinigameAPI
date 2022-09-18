@@ -21,7 +21,6 @@ public class GamePlayer {
 
     protected boolean isSpectator=false;
 
-    protected GameScoreboard scoreboard;
 
     protected boolean isElemineted=false;
 

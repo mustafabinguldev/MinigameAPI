@@ -1,25 +1,47 @@
 package online.bingulhan.minigameapi.example.status.starting;
 
-import online.bingulhan.minigameapi.game.objects.GameScoreboard;
+import online.bingulhan.minigameapi.game.objects.AbstractScoreboard;
+import online.bingulhan.minigameapi.game.objects.GameTeam;
 import online.bingulhan.minigameapi.game.status.StatusVariant;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
-public class StartingScoreboard extends GameScoreboard {
-
-    public StartingScoreboard(Player player, StatusVariant status) {
-        super(player, status);
+public class StartingScoreboard extends AbstractScoreboard {
+    public StartingScoreboard(StatusVariant statusVariant) {
+        super(statusVariant);
     }
 
-    public StartingScoreboard(StatusVariant status) {
-        super(status);
+    @Override
+    public String getTitle() {
+        return "&e&lSTARTING!";
+    }
+
+    @Override
+    public ArrayList<String> getLines() {
+
+        ArrayList<String> lines = new ArrayList<>();
+
+        lines.add("");
+        lines.add("&fPlayers: &c"+getStatusVariant().getAlivePlayers().size());
+        lines.add("  ");
+        lines.add("&e@BingulHan");
+        return lines;
     }
 
     @Override
     public void onEnable() {
-        setTitle("Starting...");
+        GameTeam team = new GameTeam("Player", "&c", "&c");
+
+        for (Player player : getStatusVariant().getAlivePlayers()) {
+            team.getPlayers().add(player);
+        }
+
+        getTeams().add(team);
+
+
     }
 
     @Override
@@ -28,12 +50,7 @@ public class StartingScoreboard extends GameScoreboard {
     }
 
     @Override
-    public GameScoreboard clone(Player player) {
-        return new StartingScoreboard(player, getStatus());
-    }
+    public void onUpdate() {
 
-    @Override
-    public List<String> scores() {
-        return Arrays.asList("Bekleyiniz..");
     }
 }

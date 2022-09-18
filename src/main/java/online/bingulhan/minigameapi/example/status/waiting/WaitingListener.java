@@ -26,7 +26,9 @@ public class WaitingListener extends StatusListener {
 
         event.setJoinMessage(null);
 
-        getStatus().injectScoreboard(true);
+        if (status.getScoreboard()!=null) {
+            status.getScoreboard().update();
+        }
 
         //Example Data
         ExamplePlayer playerData = ((ExamplePlayer) getPlayerData(event.getPlayer().getName()).get());
@@ -48,13 +50,8 @@ public class WaitingListener extends StatusListener {
 
         //How to terminate a state
         getStatus().stop();
+
     }
 
-    @EventHandler
-    public void onPlace(BlockPlaceEvent event) {
-        if (!isGamePlayer(event.getPlayer().getName())) return;
-
-        //example event.
-    }
 
 }
