@@ -90,7 +90,7 @@ public abstract class AbstractScoreboard {
 
         int index = 0;
         for (String line : lines) {
-            Team team = scoreboard.registerNewTeam("line"+lines.indexOf(line));
+            Team team = scoreboard.registerNewTeam("line"+index);
 
             team.addEntry(colorCodeOptions.get(index));
             objective.getScore(colorCodeOptions.get(index)).setScore(lines.size()-index);
@@ -106,10 +106,9 @@ public abstract class AbstractScoreboard {
 
 
         task = new ScoreboardTask(this);
-        task.runTaskTimer(getStatusVariant().getGameVariant().getPlugin(), 1L, 20L);
+        task.runTaskTimer(getStatusVariant().getGameVariant().getPlugin(), 1L, 15L);
 
         onEnable();
-        update();
     }
 
     public AbstractScoreboard(StatusVariant statusVariant) {
@@ -198,6 +197,7 @@ public abstract class AbstractScoreboard {
         }catch (Exception exception ){
 
         }
+
     }
 
 
