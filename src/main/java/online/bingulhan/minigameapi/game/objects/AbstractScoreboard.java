@@ -166,11 +166,19 @@ public abstract class AbstractScoreboard {
 
 
 }
+    public final boolean isSameTeam(GamePlayer player, GamePlayer playerTwo) {
+        for (GameTeam team : teams) {
+            if (team.getPlayers().stream().anyMatch(p -> p.getName().equals(player.getName())) && team.getPlayers().stream().anyMatch(p -> p.getName().equals(playerTwo.getName()))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public final void stop() {
 
        // scoreboard = null;
-
         task.cancel();
 
         fronzee = true;
